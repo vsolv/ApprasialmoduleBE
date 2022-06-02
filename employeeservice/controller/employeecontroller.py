@@ -353,9 +353,9 @@ def employee_type_get(request, type_id):
 #EMPLOYEE_FILE_DOWNLODE
 @csrf_exempt
 @api_view(['GET'])
-def employee_file_downlode(request, file_id):
+def employee_file_download(request, file_id):
     if request.method == 'GET':
-        req_obj = EmployeeDocumentService().employee_file_downlode(file_id)
+        req_obj = EmployeeDocumentService().employee_file_download(file_id)
         response = HttpResponse(req_obj, content_type='application/json')
         return response
 
