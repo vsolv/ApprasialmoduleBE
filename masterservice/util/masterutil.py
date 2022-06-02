@@ -1,0 +1,2 @@
+class DepartmentrefType:
+    DEPT = 'DEPT'
