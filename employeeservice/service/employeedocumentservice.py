@@ -15,42 +15,48 @@ from employeeservice.util.emputil import document_upload
 class EmployeeDocumentService:
     def create_empdocument(self, request, employee_id):
         resp = WisefinMsg()
-        if not request.FILES['file1'] is None:
-            try:
-                file_count = len(request.FILES.getlist('file1'))
-                file_type = document_upload.file1
-                # file_path = files['file_path']
-                for i in range(0, file_count):
-                    file = request.FILES.getlist('file1')[i]
-                    file_name = file.name
-                    file_size = file.size
-                    file_name_new = 'DOC' + str(datetime.now().strftime("%y%m%d_%H%M%S")) + file_name
-                    print(file_name_new)
-                    obj = Employeedocuments.objects.create(file_path=file,
-                                                           file_type=file_type,
-                                                           file_name=file_name, employee_id=employee_id)
+        try:
+            if not request.FILES['file1'] is None:
+                try:
+                    file_count = len(request.FILES.getlist('file1'))
+                    file_type = document_upload.file1
+                    # file_path = files['file_path']
+                    for i in range(0, file_count):
+                        file = request.FILES.getlist('file1')[i]
+                        file_name = file.name
+                        file_size = file.size
+                        file_name_new = 'DOC' + str(datetime.now().strftime("%y%m%d_%H%M%S")) + file_name
+                        print(file_name_new)
+                        obj = Employeedocuments.objects.create(file_path=file,
+                                                               file_type=file_type,
+                                                               file_name=file_name, employee_id=employee_id)
 
 
-            except KeyError:
-                print('Kindly pass file information')
+                except KeyError:
+                    print('Kindly pass file information')
+        except:
+            pass
 
-        if not request.FILES['file2'] is None:
-            try:
-                file_count = len(request.FILES.getlist('file2'))
-                file_type = document_upload.file2
-                # file_path = files['file_path']
-                for i in range(0, file_count):
-                    file = request.FILES.getlist('file2')[i]
-                    file_name = file.name
-                    file_size = file.size
-                    file_name_new = 'DOC' + str(datetime.now().strftime("%y%m%d_%H%M%S")) + file_name
-                    print(file_name_new)
-                    obj = Employeedocuments.objects.create(file_path=file,
-                                                           file_type=file_type,
-                                                           file_name=file_name, employee_id=employee_id)
+        try:
+            if not request.FILES['file2'] is None:
+                try:
+                    file_count = len(request.FILES.getlist('file2'))
+                    file_type = document_upload.file2
+                    # file_path = files['file_path']
+                    for i in range(0, file_count):
+                        file = request.FILES.getlist('file2')[i]
+                        file_name = file.name
+                        file_size = file.size
+                        file_name_new = 'DOC' + str(datetime.now().strftime("%y%m%d_%H%M%S")) + file_name
+                        print(file_name_new)
+                        obj = Employeedocuments.objects.create(file_path=file,
+                                                               file_type=file_type,
+                                                               file_name=file_name, employee_id=employee_id)
 
-            except KeyError:
-                print('Kindly pass file information')
+                except KeyError:
+                    print('Kindly pass file information')
+        except:
+            pass
         resp.set_message(SuccessMessage.CREATE_MESSAGE)
         return resp
 
@@ -151,13 +157,27 @@ class EmployeeDocumentService:
 
 
     def get_document(self, employee_id):
-        doc_obj = Employeedocuments.objects.filter(employee_id=employee_id)
+        file1_obj = Employeedocuments.objects.filter(employee_id=employee_id, file_type=1)
+        file2_obj = Employeedocuments.objects.filter(employee_id=employee_id, file_type=2)
+        file1 = []
+        file2 = []
         arr = []
-        for obj in doc_obj:
+        for obj in file1_obj:
             data_resp = EmployeeDocumentResponse()
-            data_resp.file_name(obj.file_name)
+            data_resp.set_file_name(obj.file_name)
             data_resp.set_id(obj.id)
-            arr.append(data_resp)
+            file1.append(data_resp)
+
+        for obj in file2_obj:
+            data_resp = EmployeeDocumentResponse()
+            data_resp.set_file_name(obj.file_name)
+            data_resp.set_id(obj.id)
+            file2.append(data_resp)
+        data = {
+            "file1": file1,
+            "file2": file2
+        }
+        arr.append(data)
         return arr
         #     value = {}
         #     value['file_name'] = obj.file_name
@@ -168,7 +188,7 @@ class EmployeeDocumentService:
 
 
 #EMPLOYEE_FILE_DOWNLOAD
-    def employee_file_downlode(self, file_id):
+    def employee_file_download(self, file_id):
         doc_id = file_id
         obj_id = doc_id.split('_')[-1]
         doc_obj = Employeedocuments.objects.get(id=obj_id)
