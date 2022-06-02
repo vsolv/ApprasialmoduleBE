@@ -72,6 +72,7 @@ class EmployeeAddressService:
         list_data = []
         for obj in emp_obj:
             data_resp = EmployeeAddressResponse()
+            data_resp.set_id(obj.id)
             data_resp.set_line1(obj.line1)
             data_resp.set_line2(obj.line2)
             data_resp.set_line3(obj.line3)
@@ -84,6 +85,5 @@ class EmployeeAddressService:
         # vpage = WisefinPaginator(emp_obj, vys_page.get_index(), 10)
         # list_data.set_pagination(vpage)
         return list_data
-
 
 
