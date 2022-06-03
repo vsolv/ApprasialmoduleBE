@@ -75,7 +75,7 @@ class EmployeeService:
             condition &= (Q(first_name__icontains=query))
         if code is not None and code != '':
             condition &= Q(code=code)
-        obj = Employee.objects.filter(condition).order_by['-created_date'][vys_page.get_offset():vys_page.get_query_limit()]
+        obj = Employee.objects.filter(condition).order_by('-created_date')[vys_page.get_offset():vys_page.get_query_limit()]
         list_data = WisefinList()
         for x in obj:
             data_resp = EmployeeResponse()
