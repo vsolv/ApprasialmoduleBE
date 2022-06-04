@@ -24,8 +24,8 @@ urlpatterns = [
     path('view_attachment/<file_id>', employeecontroller.emp_view_file, name='view_attachment'),
     path('employee_doc/<employee_id>', employeecontroller.get_employee_doc, name='employee_doc'),
     path('employee_doc_del/<id>', employeecontroller.del_emloyee_doc, name='employee_doc'),
-    #doc_attachment_downlode
-    path('employee_file_downlode/<file_id>', employeecontroller.employee_file_downlode, name='employee_file_downlode'),
+    #doc_attachment_download
+    path('employee_file_downlode/<file_id>', employeecontroller.employee_file_download, name='employee_file_downlode'),
     #employee_information
     path('employee/<employee_id>/employee_get', employeecontroller.employee_get, name='employee_get'),
     #employee_employee_type_dropdown

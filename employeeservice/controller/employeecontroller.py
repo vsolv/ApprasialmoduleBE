@@ -170,6 +170,7 @@ def get_employee_edu(request, id):
         req_obj = EmployeeEducationService().get_employee_edu(id)
         response = HttpResponse(req_obj.get(), content_type='application/json')
         return response
+
     elif request.method == 'DELETE':
         req_obj = EmployeeEducationService().del_employee_edu(id)
         response = HttpResponse(req_obj.get(), content_type='application/json')
