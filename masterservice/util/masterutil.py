@@ -6,3 +6,4 @@ class MasterrefType:
     STATE = 'STATE'
     DISTRICT = 'DIST'
     CITY = "CITY"
+    DESIG = 'DESIG'

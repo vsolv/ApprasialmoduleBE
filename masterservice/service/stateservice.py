@@ -42,8 +42,8 @@ class StateService:
             data_resp.set_code(x.code)
             data_resp.set_country_id(x.country_id)
             list_data.append(data_resp)
-            vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
-            list_data.set_pagination(vpage)
+        vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
+        list_data.set_pagination(vpage)
         return list_data
 
     def get_state(self, id):
@@ -62,3 +62,12 @@ class StateService:
         success_obj.set_message(SuccessMessage.DELETE_MESSAGE)
 
         return success_obj
+
+#FOR STATE DROPDOWN
+    def get_state_add(self, id):
+        obj = State.objects.get(id=id)
+        data_resp = StateResponse()
+        data_resp.set_id(obj.id)
+        data_resp.set_name(obj.name)
+        data_resp.set_code(obj.code)
+        return data_resp

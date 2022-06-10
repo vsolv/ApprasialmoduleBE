@@ -7,7 +7,7 @@ class ActiveStatus:
     Delete = 0
 
 class UserrefType:
-    EMPI = 'EMPI'
+    EMPI = 'EMP'
 
 class Martial_Status:
     single = {"id": 1, "text": "Single"}
@@ -149,3 +149,73 @@ def employee_type_compostie():
         vyslite.name = typearr[x]
         list_data.append(vyslite)
     return list_data
+
+class Grade:
+    LEVEL1 = 1
+    LEVEL2 = 2
+    LEVEL3 = 3
+
+    LEVEL1_VAL = 'LEVEL1'
+    LEVEL2_VAL = 'LEVEL2'
+    LEVEL3_VAL = 'LEVEL3'
+
+def grade_type_val(type):
+    if (type == Grade.LEVEL1):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'LEVEL1'
+        return vys_list
+    if (type == Grade.LEVEL2):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'LEVEL2'
+        return vys_list
+    if (type == Grade.LEVEL3):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'LEVEL3'
+        return vys_list
+
+def grade_type_compostie():
+    idarr = [Grade.LEVEL1, Grade.LEVEL2, Grade.LEVEL3]
+    typearr = [Grade.LEVEL1_VAL, Grade.LEVEL2_VAL, Grade.LEVEL3_VAL]
+
+    length = len(idarr)
+    list_data = WisefinList()
+    for y in range(length):
+        vyslite = WisefinLiteList()
+        vyslite.id = idarr[y]
+        vyslite.name = typearr[y]
+        list_data.append(vyslite)
+    return list_data
+
+# class Document_uplodes:
+#     file1 = 1
+#     file2 = 2
+#
+#     FILE1_VAL = 'file1'
+#     FILE2_VAL = 'file2'
+
+# def document_type_val(type):
+#     if (type == Document_uplodes.file1):
+#         vys_list = WisefinLiteList()
+#         vys_list.id = type
+#         vys_list.name = 'file1'
+#         return vys_list
+#     if (type == Document_uplodes.file2):
+#         vys_list = WisefinLiteList()
+#         vys_list.id = type
+#         vys_list.name = 'file2'
+#         return vys_list
+#
+# def document_type_composite():
+#     idarr = [Document_uplodes.file1, Document_uplodes.file2]
+#     typearr = [Document_uplodes.FILE1_VAL, Document_uplodes.FILE2_VAL]
+#     length = len(idarr)
+#     list_data = WisefinList()
+#     for c in range(length):
+#         vyslite = WisefinLiteList()
+#         vyslite.id = idarr[c]
+#         vyslite.name = typearr[c]
+#         list_data.append(vyslite)
+#     return list_data

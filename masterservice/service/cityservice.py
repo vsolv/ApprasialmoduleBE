@@ -62,3 +62,11 @@ class CityService:
         success_obj.set_message(SuccessMessage.DELETE_MESSAGE)
         success_obj.set_status(SuccessStatus.SUCCESS)
         return success_obj
+
+    def get_city_add(self, id):
+        obj = City.objects.get(id=id)
+        data_resp = CityResponse()
+        data_resp.set_id(obj.id)
+        data_resp.set_name(obj.name)
+        data_resp.set_code(obj.code)
+        return data_resp

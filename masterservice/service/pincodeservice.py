@@ -2,7 +2,8 @@ from django.db.models import Q
 
 from employeeservice.util.emputil import ActiveStatus
 from masterservice.data.response.pincoderesponse import PincodeResponse
-from masterservice.models import Pincode
+from masterservice.data.response.pincodesearchresponse import PincodeSearchResponse
+from masterservice.models import Pincode, City
 from utilityservice.data.response.emplist import WisefinList
 from utilityservice.data.response.empmessage import WisefinMsg, SuccessMessage, Success, SuccessStatus
 from utilityservice.data.response.emppaginator import WisefinPaginator
@@ -35,8 +36,8 @@ class PincodeService:
             data_resp.set_city_id(x.city_id)
             data_resp.set_district_id(x.district_id)
             list_data.append(data_resp)
-            vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
-            list_data.set_pagination(vpage)
+        vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
+        list_data.set_pagination(vpage)
         return list_data
 
 
@@ -55,3 +56,33 @@ class PincodeService:
         success_obj.set_status(SuccessStatus.SUCCESS)
         success_obj.set_message(SuccessMessage.DELETE_MESSAGE)
         return success_obj
+
+
+#FOR PINCODE_DROPDOWN
+    def get_pincode_add(self, id):
+        obj = Pincode.objects.get(id=id)
+        data_resp = PincodeResponse()
+        data_resp.set_id(obj.id)
+        data_resp.set_no(obj.no)
+        return data_resp
+
+
+    def fetch_pincode_search(self,query,vys_page):
+        if query is None:
+            pincodelist = Pincode.objects.filter(status=ActiveStatus.Active)
+
+        else:
+            pincodelist = Pincode.objects.filter(no__icontains=query, status=ActiveStatus.Active)
+
+        list_data = WisefinList()
+        for pincode in pincodelist:
+            pincode_data = PincodeSearchResponse()
+            pincode_data.set_id(pincode.id)
+            pincode_data.set_district(pincode.district)
+            pincode_data.set_city(pincode.city)
+            pincode_data.set_newpi(pincode.no, pincode.city, pincode.district)
+            list_data.append(pincode_data)
+            vpage = WisefinPaginator(pincodelist, vys_page.get_index(), 10)
+            list_data.set_pagination(vpage)
+            return list_data
+

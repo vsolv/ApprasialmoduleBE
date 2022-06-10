@@ -42,8 +42,8 @@ class DistrictService:
             data_resp.set_name(x.name)
             data_resp.set_state_id(x.state_id)
             list_data.append(data_resp)
-            vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
-            list_data.set_pagination(vpage)
+        vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
+        list_data.set_pagination(vpage)
         return list_data
 
     def get_district(self, id):
@@ -62,3 +62,12 @@ class DistrictService:
         success_obj.set_status(SuccessStatus.SUCCESS)
         success_obj.set_message(SuccessMessage.DELETE_MESSAGE)
         return success_obj
+
+#FOR_DISTRICT_DROPDOWN
+    def get_district_add(self,id):
+        obj = District.objects.get(id=id)
+        data_resp = DistrictResponse()
+        data_resp.set_id(obj.id)
+        data_resp.set_name(obj.name)
+        data_resp.set_code(obj.code)
+        return data_resp
