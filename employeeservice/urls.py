@@ -22,6 +22,7 @@ urlpatterns = [
     #employee_doc_attachment and view_file
     path('employee/<employee_id>/employee_doc', employeecontroller.create_employee_doc, name='employee_doc'),
     path('view_attachment/<file_id>', employeecontroller.emp_view_file, name='view_attachment'),
+    path('emp_file_get/<employee_id>', employeecontroller.emp_file_get, name='emp_file'),
     path('employee_doc/<employee_id>', employeecontroller.get_employee_doc, name='employee_doc'),
     path('employee_doc_del/<id>', employeecontroller.del_emloyee_doc, name='employee_doc'),
     #doc_attachment_download
@@ -31,6 +32,9 @@ urlpatterns = [
     #employee_employee_type_dropdown
     path('employee_type', employeecontroller.get_employee_dropdown, name='employee_type'),
     path('employee_type_get/<type_id>', employeecontroller.employee_type_get, name='employee_type_get'),
+    #grade_dropdown
+    path('grade/<id>', employeecontroller.get_grade, name='grade'),
+    path('grade', employeecontroller.fetch_grade, name='grade'),
     path('login', employeecontroller.auth_token, name='auth_token'),
 
               ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

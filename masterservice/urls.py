@@ -18,6 +18,11 @@ urlpatterns = [
     path('pincode', mastercontroller.pincode, name='pincode'),
     path('pincode/<id>', mastercontroller.get_pincode, name='pincode'),
     path('goal', mastercontroller.goal, name='goal'),
-    path('goal/<id>', mastercontroller.get_goal, name='goal')
+    path('goal/<id>', mastercontroller.get_goal, name='goal'),
+    path('designation', mastercontroller.create_designation, name='designation'),
+    path('designation/<id>', mastercontroller.get_designation, name='designation'),
+    path('get_goal/<id>', mastercontroller.goal_get, name='goal'),
+    #FOR LATER PURPOSE
+    path('pincode_search', mastercontroller.get_pincode_searchlist, name='pincode_search')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
