@@ -22,6 +22,8 @@ urlpatterns = [
     path('designation', mastercontroller.create_designation, name='designation'),
     path('designation/<id>', mastercontroller.get_designation, name='designation'),
     path('get_goal/<id>', mastercontroller.goal_get, name='goal'),
+    path('goal_mapping', mastercontroller.create_goal_mapping, name='goal_mapping'),
+    path('goal_mapping/<id>', mastercontroller.get_goal_mapping, name='goal_mapping'),
     #FOR LATER PURPOSE
     path('pincode_search', mastercontroller.get_pincode_searchlist, name='pincode_search')
 

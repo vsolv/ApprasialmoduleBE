@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf.urls.static import static
 
 
-from employeeservice.controller import employeecontroller
+from employeeservice.controller import employeecontroller,usercontroller
 
 urlpatterns = [
     # path('signup', employeecontroller.create_user, name='create_user'),
@@ -35,6 +35,7 @@ urlpatterns = [
     #grade_dropdown
     path('grade/<id>', employeecontroller.get_grade, name='grade'),
     path('grade', employeecontroller.fetch_grade, name='grade'),
+    path('signup', usercontroller.create_user, name='signup'),
     path('login', employeecontroller.auth_token, name='auth_token'),
 
               ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -74,5 +74,8 @@ class EmployeeRequest:
 
     def get_grade(self):
         return self.grade
+
+    def set_user_id(self, user_id):
+        self.user_id = user_id
     # def get_code(self):
     #     return self.code

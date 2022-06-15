@@ -17,5 +17,7 @@ class GoalRequest:
             data['grade'] = user_obj['grade']
         if 'designation_id' in user_obj:
             data['designation_id'] = user_obj['designation_id']
+        if 'name' in user_obj:
+            data['name'] = user_obj['name']
 
         return data

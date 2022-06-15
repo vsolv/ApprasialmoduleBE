@@ -83,8 +83,18 @@ class Designation(models.Model):
 
 
 class Goal(models.Model):
-    goal = models.CharField(max_length=125)
-    description = models.CharField(max_length=128, null=True, blank=True)
+    name = models.CharField(max_length=125)
+    description = models.CharField(max_length=125, null=True)
+    status = models.SmallIntegerField(default=1)
+    created_by = models.IntegerField(null=True, blank=True)
+    created_date = models.DateTimeField(default=now)
+    updated_by = models.IntegerField(null=True, blank=True)
+    updated_date = models.DateTimeField(null=True, blank=True)
+
+
+class GoalMapping(models.Model):
+    goal = models.ForeignKey(Goal, on_delete=models.SET_NULL, null=True)
+    sub_goal = models.CharField(max_length=128, null=True, blank=True)
     grade = models.IntegerField(null=True, blank=True)
     designation = models.ForeignKey(Designation, on_delete=models.SET_NULL, null=True)
     status = models.SmallIntegerField(default=1)
@@ -92,3 +102,4 @@ class Goal(models.Model):
     created_date = models.DateTimeField(default=now)
     updated_by = models.IntegerField(null=True, blank=True)
     updated_date = models.DateTimeField(null=True, blank=True)
+

@@ -9,6 +9,7 @@ from masterservice.data.request.countryrequest import CountryRequest
 from masterservice.data.request.departementrequest import DepartmentRequest
 from masterservice.data.request.designationrequest import DesignationRequest
 from masterservice.data.request.districtrequest import DistrictRequest
+from masterservice.data.request.goalmappingrequest import GoalMappingRequest
 from masterservice.data.request.goalrequest import GoalRequest
 from masterservice.data.request.pincoderequest import PincodeRequest
 from masterservice.data.request.staterequest import StateRequest
@@ -17,6 +18,7 @@ from masterservice.service.countryservice import CountryService
 from masterservice.service.departementservice import DepartmentService
 from masterservice.service.designationservice import DesignationService
 from masterservice.service.districtservice import DistrictService
+from masterservice.service.goalmappingservice import GoalMappingService
 from masterservice.service.goalservice import GoalService
 from masterservice.service.pincodeservice import PincodeService
 from masterservice.service.stateservice import StateService
@@ -300,7 +302,6 @@ def get_goal(request, id):
 
 
 #DESIGNATION
-
 @csrf_exempt
 @api_view(['POST','GET'])
 def create_designation(request):
@@ -333,6 +334,7 @@ def get_designation(request, id):
         response = HttpResponse(req_obj.get(), content_type='application/json')
         return response
 
+
 #FOR_GOAL_EDIT_SCREEN
 @csrf_exempt
 @api_view(['GET'])
@@ -343,5 +345,37 @@ def goal_get(request, id):
         response = HttpResponse(resp_obj.get(), content_type='application/json')
         return response
 
+#GOAL_MAPPING_TABLE
+@csrf_exempt
+@api_view(['POST', 'GET'])
+def create_goal_mapping(request):
+    if request.method == 'POST':
+        data_json = json.loads(request.body)
+        request_fn = GoalMappingRequest(data_json)
+        val = data_json['sub_goal']
+        for x in val:
+            req_obj = GoalMappingService().create_goal_mapping(request_fn, x['description'])
+        response = HttpResponse(req_obj.get(), content_type='application/json')
+        return response
+
+    elif request.method == "GET":
+        page = request.GET.get('page', 1)
+        page = int(page)
+        vys_page = WisefinPage(page, 10)
+        req_obj = GoalMappingService().fetch_goal_mapping(vys_page, request)
+        response = HttpResponse(req_obj.get(), content_type='application/json')
+        return response
 
 
+@csrf_exempt
+@api_view(['GET','DELETE'])
+def get_goal_mapping(request, id):
+    if request.method == 'GET':
+        req_obj = GoalMappingService().get_goal_mapping(id)
+        response = HttpResponse(req_obj.get(), content_type='application/json')
+        return response
+
+    elif request.method == 'DELETE':
+        req_obj = GoalMappingService().del_goal_mapping(id)
+        response = HttpResponse(req_obj.get(), content_type='application/json')
+        return response
