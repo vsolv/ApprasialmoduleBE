@@ -45,6 +45,7 @@ class AppraisalService:
             data_resp.set_designation(x.designation)
             data_resp.set_appraisal_status(x.appraisal_status)
             data_resp.set_grade(x.grade)
+
             list_data.append(data_resp)
         vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
         list_data.set_pagination(vpage)
