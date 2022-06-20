@@ -128,6 +128,14 @@ class EmployeeService:
         success_obj.set_message(SuccessMessage.DELETE_MESSAGE)
         return success_obj
 
+#FOR_APPRAISAL_CREATE_DROPDOWN
+    def employee_get_info(self, id):
+        obj = Employee.objects.get(id=id)
+        data_resp = EmployeeResponse()
+        data_resp.set_id(obj.id)
+        data_resp.set_code(obj.code)
+        data_resp.set_first_name(obj.first_name)
+        return data_resp
 
 
 

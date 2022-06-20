@@ -5,7 +5,7 @@ from masterservice.service.designationservice import DesignationService
 
 
 class GoalResponse:
-    id, goal, description, grade, designation_id = (None,)*5
+    id, goal, description, grade, designation_id,name = (None,)*6
 
     def get(self):
         return json.dumps(self, default=lambda o: o.__dict__,
@@ -28,3 +28,6 @@ class GoalResponse:
         resp_obj = DesignationService()
         val = resp_obj.get_designation_info(designation_id)
         self.designation_id = val
+
+    def set_name(self, name):
+        self.name = name

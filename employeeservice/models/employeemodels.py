@@ -108,3 +108,37 @@ class Employeedocuments(models.Model):
     created_date = models.DateTimeField(default=now)
     updated_by = models.IntegerField(null=True, blank=True)
     updated_date = models.DateTimeField(null=True, blank=True)
+
+
+class Appraisal(models.Model):
+    employee = models.IntegerField(default=1)
+    designation = models.CharField(max_length=64, null=True, blank=True)
+    appraisal_status = models.IntegerField(default=1)
+    grade = models.SmallIntegerField(default=1)
+    status = models.IntegerField(default=1)
+    created_by = models.IntegerField(null=True)
+    created_date = models.DateTimeField(default=now)
+    updated_by = models.IntegerField(null=True, blank=True)
+    updated_date = models.DateTimeField(null=True, blank=True)
+
+
+class Appraisaldetails(models.Model):
+    appraisal = models.ForeignKey(Appraisal, on_delete=models.SET_NULL, null=True)
+    remarks = models.TextField(max_length=125, null=True)
+    rating = models.IntegerField(null=True, blank=True)
+    status = models.IntegerField(default=1)
+    created_by = models.IntegerField(null=True)
+    created_date = models.DateTimeField(default=now)
+    updated_by = models.IntegerField(null=True, blank=True)
+    updated_date = models.DateTimeField(null=True, blank=True)
+
+
+
+class AppraisalQueue(models.Model):
+    appraisal = models.ForeignKey(Appraisal, on_delete=models.SET_NULL, null=True)
+    from_user_id = models.IntegerField(null=False)
+    to_user_id = models.IntegerField(null=False)
+    created_date = models.DateTimeField(default=now)
+    comments = models.CharField(null=False, max_length=2048)
+    status = models.SmallIntegerField(default=1)
+    is_sys = models.BooleanField(default=False)

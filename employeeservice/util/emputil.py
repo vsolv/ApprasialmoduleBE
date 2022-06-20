@@ -219,3 +219,51 @@ def grade_type_compostie():
 #         vyslite.name = typearr[c]
 #         list_data.append(vyslite)
 #     return list_data
+
+class Appraisal_Status:
+    DRAFT = 1
+    PENDING = 2
+    APPROVED = 3
+    REJECTED = 4
+
+    DRAFT_VAL = 'Draft'
+    PENDING_VAL = 'Pending'
+    APPROVED_VAL = 'Approved'
+    REJECTED_VAL = 'Rejected'
+
+
+def Appraisal_type_val(type):
+    if (type == Appraisal_Status.DRAFT):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'Draft'
+        return vys_list
+    if (type == Appraisal_Status.PENDING):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'Pending'
+        return vys_list
+
+    if (type == Appraisal_Status.APPROVED):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'Approved'
+        return vys_list
+
+    if (type == Appraisal_Status.REJECTED):
+        vys_list = WisefinLiteList()
+        vys_list.id = type
+        vys_list.name = 'Rejected'
+        return vys_list
+
+def appraisal_type_composite():
+    idarr = [Appraisal_Status.DRAFT, Appraisal_Status.PENDING, Appraisal_Status.APPROVED, Appraisal_Status.REJECTED]
+    typearr = [Appraisal_Status.DRAFT_VAL, Appraisal_Status.PENDING_VAL, Appraisal_Status.APPROVED_VAL, Appraisal_Status.REJECTED_VAL]
+    length = len(idarr)
+    list_data = WisefinList()
+    for x in range(length):
+        vyslite = WisefinLiteList()
+        vyslite.id = idarr[x]
+        vyslite.name = typearr[x]
+        list_data.append(vyslite)
+    return list_data
