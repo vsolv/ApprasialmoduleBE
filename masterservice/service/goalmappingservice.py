@@ -37,15 +37,15 @@ class GoalMappingService:
     def fetch_goal_mapping(self, vys_page, request):
         # query = request.GET.get('query')
         grade = request.GET.get('grade')
-        designation=request.GET.get('designation')
+        designation = request.GET.get('designation')
         condtion = Q(status=ActiveStatus.Active)
         # if query is not None and query != '':
         #     condtion &= Q(sub_goal__icontains=query)
         if grade is not None and grade != '':
-            condtion &=Q(grade=grade)
-        if designation is not None and designation !='':
-            condtion &=Q(designation_id__in=designation)
-        goal_obj = GoalMapping.objects.filter(condtion)
+            condtion &= Q(grade=grade)
+        if designation is not None and designation != '':
+            condtion &= Q(designation_id__in=designation)
+        goal_obj = GoalMapping.objects.filter(condtion)[vys_page.get_offset():vys_page.get_query_limit()]
         list_data = WisefinList()
         for obj in goal_obj:
             data_resp = GoalMappingResponse()
@@ -53,7 +53,7 @@ class GoalMappingService:
             data_resp.set_sub_goal(obj.sub_goal)
             data_resp.set_grade(obj.grade)
             data_resp.set_designation_id(obj.designation_id)
-            data_resp.set_goal_id(obj.goal_id)
+            data_resp.set_goal_id(obj.goal.id)
             list_data.append(data_resp)
         vpage = WisefinPaginator(goal_obj, vys_page.get_index(), 10)
         list_data.set_pagination(vpage)

@@ -358,7 +358,7 @@ def create_goal_mapping(request):
         response = HttpResponse(req_obj.get(), content_type='application/json')
         return response
 
-    elif request.method == "GET":
+    elif request.method == 'GET':
         page = request.GET.get('page', 1)
         page = int(page)
         vys_page = WisefinPage(page, 10)
@@ -368,7 +368,7 @@ def create_goal_mapping(request):
 
 
 @csrf_exempt
-@api_view(['GET','DELETE'])
+@api_view(['GET', 'DELETE'])
 def get_goal_mapping(request, id):
     if request.method == 'GET':
         req_obj = GoalMappingService().get_goal_mapping(id)

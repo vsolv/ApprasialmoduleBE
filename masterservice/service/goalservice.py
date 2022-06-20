@@ -54,9 +54,7 @@ class GoalService:
         data_resp.set_id(obj.id)
         data_resp.set_name(obj.name)
         # data_resp.set_goal(obj.goal)
-        data_resp.set_description(obj.description)
-        # data_resp.set_grade(obj.grade)
-        # data_resp.set_designation(obj.designation.id)
+        # data_resp.set_description(obj.description)
 
         return data_resp
 
@@ -74,8 +72,6 @@ class GoalService:
         data_resp = GoalResponse()
         data_resp.set_id(obj.id)
         data_resp.set_name(obj.name)
-        # data_resp.set_goal(obj.goal)
-        # data_resp.set_grade(obj.grade)
-        # data_resp.set_designation(obj.designation.id)
         data_resp.set_description(obj.description)
         return data_resp
+

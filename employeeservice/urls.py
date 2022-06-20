@@ -4,7 +4,7 @@ from django.urls import path
 from django.conf.urls.static import static
 
 
-from employeeservice.controller import employeecontroller,usercontroller
+from employeeservice.controller import employeecontroller, usercontroller, appraisalcontroller
 
 urlpatterns = [
     # path('signup', employeecontroller.create_user, name='create_user'),
@@ -35,7 +35,19 @@ urlpatterns = [
     #grade_dropdown
     path('grade/<id>', employeecontroller.get_grade, name='grade'),
     path('grade', employeecontroller.fetch_grade, name='grade'),
+    #SIGNUP AND LOGIN
     path('signup', usercontroller.create_user, name='signup'),
     path('login', employeecontroller.auth_token, name='auth_token'),
 
+    #APPRAISAL_CREATE
+
+    path('appraisal_create', appraisalcontroller.appraisal_create, name='appraisal'),
+    path('get_appraisal/<id>', appraisalcontroller.get_appraisal, name='appraisal'),
+    #appraisal_detail_create
+    path('appraisal_detail_create', appraisalcontroller.appraisal_detail_create, name='appraisal_detail'),
+    path('get_appraisal_detail/<id>', appraisalcontroller.get_appraisal_details, name='appraisal_detail'),
+    #appraisal_queue_create
+    path('appraisal_queue_create', appraisalcontroller.appraisal_queue_create, name='appraisal_queue'),
+    #appraisal_get
+    path('appraisal_create/<appraisal_id>/appraisal_get', appraisalcontroller.appraisal_get,name='appraisal_get'),
               ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
