@@ -70,7 +70,7 @@ class EmployeeService:
         return emp_obj.id
 
 #EMPLOYEE_SUMMARY_SEARCH
-    def fetch_employee(self,vys_page, request):
+    def fetch_employee(self, vys_page, request):
         query = request.GET.get('query')
         code = request.GET.get('code')
         condition = Q(status=ActiveStatus.Active)
@@ -138,8 +138,12 @@ class EmployeeService:
         return data_resp
 
 #EMPLOYEE_DROP_DOWN
-    def employee_drop_down(self,vys_page):
-        obj = Employee.objects.all()
+    def employee_drop_down(self, vys_page, request):
+        query = request.GET.get('query')
+        condtion = Q(status=ActiveStatus.Active)
+        if query is not None and query!='':
+            condtion &= Q(first_name__icontains=query)
+        obj = Employee.objects.filter(condtion)
         list_data = WisefinList()
         for x in obj:
             data_resp = EmployeeResponse()

@@ -31,7 +31,7 @@ class AppraisalService:
 
         return appraisal.id
 
-    def fetch_appraisal(self, vys_page,request):
+    def fetch_appraisal(self, vys_page, request):
         query = request.GET.get('query')
         condtion = Q(status=ActiveStatus.Active)
         if query is not None and query != '':

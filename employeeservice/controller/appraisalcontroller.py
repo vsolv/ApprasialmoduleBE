@@ -165,8 +165,8 @@ def employee_drop_down(request):
         page = int(page)
         vys_page = WisefinPage(page, 10)
         emp_serv = EmployeeService()
-        req_obj = emp_serv.employee_drop_down(vys_page)
-        response = HttpResponse(req_obj.get(),content_type='application/json')
+        req_obj = emp_serv.employee_drop_down(vys_page,request)
+        response = HttpResponse(req_obj.get(), content_type='application/json')
         return response
 
 
