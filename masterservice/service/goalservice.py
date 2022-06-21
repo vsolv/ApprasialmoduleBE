@@ -33,7 +33,7 @@ class GoalService:
         #     designation = Designation.objects.filter(name__icontains=query).values_list('id', flat=True)
         #     designation = list(designation)
         #     condtion &= Q(goal__icontains=query) | Q(designation_id__in=designation)
-        goal_obj = Goal.objects.filter(condtion)
+        goal_obj = Goal.objects.filter(condtion).order_by('-created_date')[vys_page.get_offset():vys_page.get_query_limit()]
         list_data = WisefinList()
         for obj in goal_obj:
             data_resp = GoalResponse()

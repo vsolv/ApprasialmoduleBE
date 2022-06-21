@@ -48,6 +48,10 @@ urlpatterns = [
     path('get_appraisal_detail/<id>', appraisalcontroller.get_appraisal_details, name='appraisal_detail'),
     #appraisal_queue_create
     path('appraisal_queue_create', appraisalcontroller.appraisal_queue_create, name='appraisal_queue'),
+    #appraisal_drop_down
+    path('appraisal_drop_down', appraisalcontroller.appraisal_drop_down,name='appraisal_dropdown'),
     #appraisal_get
-    path('appraisal_create/<appraisal_id>/appraisal_get', appraisalcontroller.appraisal_get,name='appraisal_get'),
+    path('appraisal_create/<appraisal_id>/appraisal_get', appraisalcontroller.appraisal_get, name='appraisal_get'),
+    #employee_drop_down
+    path('employee_drop_down', appraisalcontroller.employee_drop_down, name='emloyee_drop_down')
               ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

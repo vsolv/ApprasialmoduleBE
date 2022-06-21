@@ -21,7 +21,7 @@ class GoalMappingService:
             obj = GoalMapping.objects.get(id=data_obj.get_id())
 
         else:
-            obj = GoalMapping.objects.create(id=data_obj.get_id(),
+            obj = GoalMapping.objects.create(
                                              sub_goal=sub_goal,
                                              grade=data_obj.get_grade(),
                                              designation_id=data_obj.get_designation_id(),

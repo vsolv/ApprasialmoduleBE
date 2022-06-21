@@ -137,6 +137,18 @@ class EmployeeService:
         data_resp.set_first_name(obj.first_name)
         return data_resp
 
+#EMPLOYEE_DROP_DOWN
+    def employee_drop_down(self,vys_page):
+        obj = Employee.objects.all()
+        list_data = WisefinList()
+        for x in obj:
+            data_resp = EmployeeResponse()
+            data_resp.set_id(x.id)
+            data_resp.set_first_name(x.first_name)
+            list_data.append(data_resp)
+        vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
+        list_data.set_pagination(vpage)
+        return list_data
 
 
 #LOGIN_API

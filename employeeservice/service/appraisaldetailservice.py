@@ -18,7 +18,7 @@ class AppraisalDetailService:
 
 
         else:
-            obj = Appraisaldetails.objects.create(id=data_obj.get_id(), appraisal_id=appraisal_id,
+            obj = Appraisaldetails.objects.create(appraisal_id=appraisal_id,
                                                   remarks=data_obj.get_remarks(),
                                                   rating=data_obj.get_rating())
 

@@ -12,7 +12,7 @@ class AppraisalService:
     def appraisal_create(self, data_obj):
         resp = WisefinMsg()
         if not data_obj.get_id() is None:
-            appraisal = Appraisal.objects.filter(id=data_obj.get_id()).update(employee=data_obj.get_employee(),
+            appraisal = Appraisal.objects.filter(id=data_obj.get_id()).update(employee=data_obj.get__employee(),
                                                                         designation=data_obj.get_designation(),
                                                                         appraisal_status=data_obj.get_appraisal_status(),
                                                                         grade=data_obj.get_grade())
@@ -21,12 +21,12 @@ class AppraisalService:
 
 
         else:
-            appraisal = Appraisal.objects.create(id=data_obj.get_id(),
+            appraisal = Appraisal.objects.create(employee=data_obj.get__employee(),
                                            designation=data_obj.get_designation(),
                                            appraisal_status=data_obj.get_appraisal_status(),
                                            grade=data_obj.get_grade())
 
-            appraisal = AppraisalQueue.objects.create(appraisal_id=appraisal.id, from_user_id='1', to_user_id='1', comments='')
+            appraisal_que = AppraisalQueue.objects.create(appraisal_id=appraisal.id, from_user_id='1', to_user_id='1', comments='')
             # resp.set_message(SuccessMessage.CREATE_MESSAGE)
 
         return appraisal.id
@@ -36,7 +36,7 @@ class AppraisalService:
         condtion = Q(status=ActiveStatus.Active)
         if query is not None and query != '':
             condtion &= Q(employee=query)
-        obj = Appraisal.objects.filter(condtion)
+        obj = Appraisal.objects.filter(condtion)[vys_page.get_offset():vys_page.get_query_limit()]
         list_data = WisefinList()
         for x in obj:
             data_resp = AppraisalResponse()
@@ -45,7 +45,6 @@ class AppraisalService:
             data_resp.set_designation(x.designation)
             data_resp.set_appraisal_status(x.appraisal_status)
             data_resp.set_grade(x.grade)
-
             list_data.append(data_resp)
         vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
         list_data.set_pagination(vpage)
