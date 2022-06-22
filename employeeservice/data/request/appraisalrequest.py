@@ -16,7 +16,7 @@ class AppraisalRequest:
     def get_id(self):
         return self.id
 
-    def get_employee(self):
+    def get__employee(self):
         return self.employee
 
     def get_designation(self):

@@ -18,7 +18,7 @@ class AppraisalQueueService:
 
 
         else:
-            obj = AppraisalQueue.objects.create(id=data_obj.get_id(),
+            obj = AppraisalQueue.objects.create(
                                                 appraisal_id=data_obj.get_appraisal_id(),
                                                 from_user_id=data_obj.get_from_user_id(),
                                                 to_user_id=data_obj.get_to_user_id(),

@@ -12,6 +12,7 @@ from employeeservice.service.appraisaldetailservice import AppraisalDetailServic
 from employeeservice.service.appraisalqueueservice import AppraisalQueueService
 from employeeservice.service.appraisalservice import AppraisalService
 from employeeservice.service.employeeservice import EmployeeService
+from employeeservice.util.emputil import appraisal_type_composite
 from utilityservice.data.response.emppage import WisefinPage
 from utilityservice.data.response.empmessage import WisefinMsg, SuccessMessage, ErrorMessage, Success, SuccessStatus, Error, ErrorDescription
 
@@ -29,15 +30,17 @@ def appraisal_create(request):
         #appraisal_details
         details = data_json.get('details')
         print('details_id', details)
-        details_obj = AppraisalDetailRequest(details[0])
-        if appraisal_id!=None:
-            details_resp = appraisal_details.appraisal_detail_create(details_obj, appraisal_id)
+        try:
+            for x in details:
+                details_obj = AppraisalDetailRequest(x)
+                if appraisal_id!=None:
+                    details_resp = appraisal_details.appraisal_detail_create(details_obj, appraisal_id)
+
             resp = WisefinMsg()
             resp.set_message(SuccessMessage.CREATE_MESSAGE)
             response = HttpResponse(resp.get(), content_type='application/json')
             return response
-
-        else:
+        except:
             resp = WisefinMsg()
             resp.set_message(ErrorMessage.INVALID_DATA)
             response = HttpResponse(resp.get(), content_type='application/json')
@@ -67,9 +70,19 @@ def get_appraisal(request, id):
         return response
 
 
+#APPRAISAL_DROP_DOWN
+@csrf_exempt
+@api_view(['GET'])
+def appraisal_drop_down(request):
+    if request.method == 'GET':
+        val = appraisal_type_composite()
+        response = HttpResponse(val.get(), content_type='application/json')
+        return response
+
+
 #APPRAISAL_DETAIL_CREATE
 @csrf_exempt
-@api_view(['POST','GET'])
+@api_view(['POST', 'GET'])
 def appraisal_detail_create(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -141,5 +154,19 @@ def appraisal_get(request, appraisal_id):
             resp.set_code('400')
             response = HttpResponse(resp.get(), content_type='application/json')
             return response
+
+
+#EMPLOYEE_DROP_DOWN
+@csrf_exempt
+@api_view(['GET'])
+def employee_drop_down(request):
+    if request.method == 'GET':
+        page = request.GET.get('page', 1)
+        page = int(page)
+        vys_page = WisefinPage(page, 10)
+        emp_serv = EmployeeService()
+        req_obj = emp_serv.employee_drop_down(vys_page,request)
+        response = HttpResponse(req_obj.get(), content_type='application/json')
+        return response
 
 

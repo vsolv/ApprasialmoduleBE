@@ -19,9 +19,10 @@ class GoalMappingService:
                                                                     goal_id=data_obj.get_goal_id())
 
             obj = GoalMapping.objects.get(id=data_obj.get_id())
+            resp.set_message(SuccessMessage.UPDATE_MESSAGE)
 
         else:
-            obj = GoalMapping.objects.create(id=data_obj.get_id(),
+            obj = GoalMapping.objects.create(
                                              sub_goal=sub_goal,
                                              grade=data_obj.get_grade(),
                                              designation_id=data_obj.get_designation_id(),
@@ -45,7 +46,7 @@ class GoalMappingService:
             condtion &= Q(grade=grade)
         if designation is not None and designation != '':
             condtion &= Q(designation_id__in=designation)
-        goal_obj = GoalMapping.objects.filter(condtion)[vys_page.get_offset():vys_page.get_query_limit()]
+        goal_obj = GoalMapping.objects.filter(condtion).order_by('-created_date')[vys_page.get_offset():vys_page.get_query_limit()]
         list_data = WisefinList()
         for obj in goal_obj:
             data_resp = GoalMappingResponse()

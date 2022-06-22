@@ -111,7 +111,7 @@ class Employeedocuments(models.Model):
 
 
 class Appraisal(models.Model):
-    employee = models.IntegerField(default=1)
+    employee = models.IntegerField(null=True)
     designation = models.CharField(max_length=64, null=True, blank=True)
     appraisal_status = models.IntegerField(default=1)
     grade = models.SmallIntegerField(default=1)
