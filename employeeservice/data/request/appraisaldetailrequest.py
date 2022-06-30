@@ -1,5 +1,5 @@
 class AppraisalDetailRequest:
-   id, appraisal_id, remarks, rating = (None,)* 4
+   id, appraisal_id, remarks, rating, goal_mapping = (None,)* 5
 
    def __init__(self, user_obj):
        if 'id' in user_obj:
@@ -10,6 +10,8 @@ class AppraisalDetailRequest:
            self.remarks = user_obj['remarks']
        if 'rating' in user_obj:
            self.rating = user_obj['rating']
+       if 'goal_mapping' in user_obj:
+           self.goal_mapping = user_obj['goal_mapping']
 
    def get_id(self):
        return self.id
@@ -22,3 +24,6 @@ class AppraisalDetailRequest:
 
    def get_rating(self):
        return self.rating
+
+   def get_goal_mapping(self):
+       return self.goal_mapping

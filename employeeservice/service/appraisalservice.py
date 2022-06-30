@@ -15,7 +15,8 @@ class AppraisalService:
             appraisal = Appraisal.objects.filter(id=data_obj.get_id()).update(employee=data_obj.get__employee(),
                                                                         designation=data_obj.get_designation(),
                                                                         appraisal_status=data_obj.get_appraisal_status(),
-                                                                        grade=data_obj.get_grade())
+                                                                        grade=data_obj.get_grade(),
+                                                                        appraisal_date=data_obj.get_appraisal_date())
 
             appraisal = Appraisal.objects.get(id=data_obj.get_id())
 
@@ -24,7 +25,8 @@ class AppraisalService:
             appraisal = Appraisal.objects.create(employee=data_obj.get__employee(),
                                            designation=data_obj.get_designation(),
                                            appraisal_status=data_obj.get_appraisal_status(),
-                                           grade=data_obj.get_grade())
+                                           grade=data_obj.get_grade(),
+                                           appraisal_date=data_obj.get_appraisal_date())
 
             appraisal_que = AppraisalQueue.objects.create(appraisal_id=appraisal.id, from_user_id='1', to_user_id='1', comments='')
             # resp.set_message(SuccessMessage.CREATE_MESSAGE)
@@ -45,6 +47,7 @@ class AppraisalService:
             data_resp.set_designation(x.designation)
             data_resp.set_appraisal_status(x.appraisal_status)
             data_resp.set_grade(x.grade)
+            data_resp.set_appraisal_date(x.appraisal_date)
             list_data.append(data_resp)
         vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
         list_data.set_pagination(vpage)
@@ -58,6 +61,7 @@ class AppraisalService:
         data_resp.set_designation(obj.designation)
         data_resp.set_appraisal_status(obj.appraisal_status)
         data_resp.set_employee(obj.employee)
+        data_resp.set_appraisal_date(obj.appraisal_date)
         return data_resp
 
     def del_appraisal(self, id):

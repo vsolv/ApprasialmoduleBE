@@ -1,8 +1,10 @@
 import json
 
+from masterservice.service.goalmappingservice import GoalMappingService
+
 
 class AppraisalDetailResponse:
-    id, appraisal_id, remarks, rating = (None,) * 4
+    id, appraisal_id, remarks, rating, goal_mapping = (None,) * 5
 
 
     def get(self):
@@ -19,3 +21,8 @@ class AppraisalDetailResponse:
 
     def set_rating(self, rating):
         self.rating = rating
+
+    def set_goal_mapping(self, goal_mapping):
+        goal_mapping_serv = GoalMappingService()
+        val = goal_mapping_serv.get_goal_mapping(goal_mapping)
+        self.goal_mapping = val

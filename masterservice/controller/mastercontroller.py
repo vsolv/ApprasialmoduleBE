@@ -2,8 +2,11 @@ import json
 
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
+from emputilityservice.service.authentication import EmployeeAuthentication
+from emputilityservice.service.permission import EmployeePermission
 from masterservice.data.request.cityrequest import CityRequest
 from masterservice.data.request.countryrequest import CountryRequest
 from masterservice.data.request.departementrequest import DepartmentRequest
@@ -27,6 +30,8 @@ from utilityservice.data.response.emppage import WisefinPage
 
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_department(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -47,6 +52,8 @@ def create_department(request):
 
 @csrf_exempt
 @api_view(['GET','DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_department(request, id):
     if request.method == 'GET':
         req_obj = DepartmentService().get_department(id)
@@ -61,6 +68,8 @@ def get_department(request, id):
 #COUNTRY
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def country(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -82,6 +91,8 @@ def country(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_country(request, id):
     if request.method == 'GET':
         resp_obj = CountryService().get_country(id)
@@ -97,6 +108,8 @@ def get_country(request, id):
 #STATE
 @csrf_exempt
 @api_view(['POST','GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def state(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -117,6 +130,8 @@ def state(request):
 
 @csrf_exempt
 @api_view(['GET','DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_state(request, id):
     if request.method == 'GET':
         req_obj = StateService().get_state(id)
@@ -132,6 +147,8 @@ def get_state(request, id):
 #DISTRICT
 @csrf_exempt
 @api_view(['POST','GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def district(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -152,6 +169,8 @@ def district(request):
 
 @csrf_exempt
 @api_view(['GET','DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_district(request, id):
     if request.method == 'GET':
         req_obj = DistrictService().get_district(id)
@@ -168,8 +187,8 @@ def get_district(request, id):
 
 @csrf_exempt
 @api_view(['POST','GET'])
-# @authentication_classes([VowAuthentication])
-# @permission_classes([IsAuthenticated, VowPermission])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def city(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -191,8 +210,8 @@ def city(request):
 
 @csrf_exempt
 @api_view(['GET','DELETE'])
-# @authentication_classes([VowAuthentication])
-# @permission_classes([IsAuthenticated, VowPermission])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_city(request, id):
     if request.method == 'GET':
         req_obj = CityService().get_city(id)
@@ -207,8 +226,8 @@ def get_city(request, id):
 #PINCODE
 @csrf_exempt
 @api_view(['POST','GET'])
-# @authentication_classes([VowAuthentication])
-# @permission_classes([IsAuthenticated, VowPermission])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def pincode(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -229,6 +248,8 @@ def pincode(request):
 
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_pincode_searchlist(request):
     if request.method == 'GET':
         search = request.GET.get('query', None)
@@ -253,8 +274,8 @@ def get_pincode_searchlist(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
-# @authentication_classes([VowAuthentication])
-# @permission_classes([IsAuthenticated, VowPermission])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_pincode(request, id):
     if request.method == 'GET':
         req_obj = PincodeService().get_pincode(id)
@@ -269,6 +290,8 @@ def get_pincode(request, id):
 #GOAL
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def goal(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -289,6 +312,8 @@ def goal(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_goal(request, id):
     if request.method == 'GET':
         req_obj = GoalService().get_goal(id)
@@ -304,6 +329,8 @@ def get_goal(request, id):
 #DESIGNATION
 @csrf_exempt
 @api_view(['POST','GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_designation(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -323,6 +350,8 @@ def create_designation(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_designation(request, id):
     if request.method == 'GET':
         req_obj = DesignationService().get_designation(id)
@@ -338,6 +367,8 @@ def get_designation(request, id):
 #FOR_GOAL_EDIT_SCREEN
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def goal_get(request, id):
     if request.method == 'GET':
         goal_serv = GoalService()
@@ -348,6 +379,8 @@ def goal_get(request, id):
 #GOAL_MAPPING_TABLE
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_goal_mapping(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -369,6 +402,8 @@ def create_goal_mapping(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_goal_mapping(request, id):
     if request.method == 'GET':
         req_obj = GoalMappingService().get_goal_mapping(id)

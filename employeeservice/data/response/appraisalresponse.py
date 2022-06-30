@@ -6,7 +6,7 @@ from masterservice.service.designationservice import DesignationService
 
 
 class AppraisalResponse:
-    id, employee, designation, appraisal_status, grade = (None,) * 5
+    id, employee, designation, appraisal_status, grade, appraisal_date = (None,) * 6
 
     def get(self):
         return json.dumps(self, default=lambda o: o.__dict__, sort_keys=True, indent=4)
@@ -31,4 +31,7 @@ class AppraisalResponse:
     def set_grade(self, grade):
         val = grade_type_val(grade)
         self.grade = val
+
+    def set_appraisal_date(self, appraisal_date):
+        self.appraisal_date = appraisal_date
 

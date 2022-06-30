@@ -30,8 +30,8 @@ from employeeservice.util.emputil import employee_type_compostie, employee_type_
 
 @csrf_exempt
 @api_view(['POST', 'GET'])
-# @authentication_classes([EmployeeAuthentication])
-# @permission_classes([IsAuthenticated, EmployeePermission])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_employee(request):
     if request.method == 'POST':
         data_json = json.loads(request.data.dict().get('data'))
@@ -101,6 +101,8 @@ def create_employee(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee(request, id):
     if request.method == 'GET':
         req_obj = EmployeeService().get_employee(id)
@@ -114,6 +116,8 @@ def get_employee(request, id):
 #EMPLOYEE_ADDRESS
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_employee_addr(request, employee_id):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -134,6 +138,8 @@ def create_employee_addr(request, employee_id):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee_addr(request, id):
     if request.method == 'GET':
         req_obj = EmployeeAddressService().get_employee_addr(id)
@@ -147,6 +153,8 @@ def get_employee_addr(request, id):
 #EMPLOYEE_EDUCATION
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_employee_edu(request, employee_id):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -166,6 +174,8 @@ def create_employee_edu(request, employee_id):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee_edu(request, id):
     if request.method == 'GET':
         req_obj = EmployeeEducationService().get_employee_edu(id)
@@ -180,6 +190,8 @@ def get_employee_edu(request, id):
 #EMPLOYEE_EXPERIRENCE
 @csrf_exempt
 @api_view(['POST','GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_employee_exp(request, employee_id):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -200,6 +212,8 @@ def create_employee_exp(request, employee_id):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee_exp(request, id):
     if request.method == 'GET':
         req_obj = EmployeeExpService().get_employee_exp(id)
@@ -213,6 +227,8 @@ def get_employee_exp(request, id):
 #EMPLOYEE_PERSONAL_INFO
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_emp_personalinfo(request, employee_id):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -233,6 +249,8 @@ def create_emp_personalinfo(request, employee_id):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee_perinfo(request, id):
     if request.method == 'GET':
         req_obj = EmployeePersonalinfoService().get_employee_perinfo(id)
@@ -247,6 +265,8 @@ def get_employee_perinfo(request, id):
 #EMPLOYEE_DOC_ATTACHMENT
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def create_employee_doc(request, employee_id):
     if request.method == 'POST':
         # data_json = json.loads(request.body)
@@ -269,6 +289,8 @@ def create_employee_doc(request, employee_id):
 #EMPLOYEE_DOC_DEL AND CREATE_ATTACHMENT
 @csrf_exempt
 @api_view(['POST', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee_doc(request, employee_id):
     if request.method == 'POST':
         req_obj = EmployeeDocumentService().create_empdocuments(request, employee_id)
@@ -279,6 +301,8 @@ def get_employee_doc(request, employee_id):
 #DELETE_ATTACHMENT
 @csrf_exempt
 @api_view(['DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def del_emloyee_doc(request, id):
     if request.method == 'DELETE':
         req_obj = EmployeeDocumentService().del_empdocument(id)
@@ -289,6 +313,8 @@ def del_emloyee_doc(request, id):
 #GET_API_FOR_EMPLOYEE_DETAILS
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def employee_get(request, employee_id):
     if request.method == 'GET':
         employee_serv = EmployeeService()
@@ -325,6 +351,8 @@ def employee_get(request, employee_id):
 #EMPLOYEE_VIEW_FILE
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def emp_view_file(request, file_id):
     if request.method == 'GET':
         attachment_serv = EmployeeDocumentService()
@@ -334,6 +362,8 @@ def emp_view_file(request, file_id):
 #EMPLOYEE_FILE_GET
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def emp_file_get(request, employee_id):
     if request.method == 'GET':
         doc_serv = EmployeeDocumentService()
@@ -346,6 +376,8 @@ def emp_file_get(request, employee_id):
 #EMPLOYEE_TYPE_DROPDOWN
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_employee_dropdown(request):
     if request.method == 'GET':
         req_obj = employee_type_compostie()
@@ -355,6 +387,8 @@ def get_employee_dropdown(request):
 #EMPLOYEE_TYPE_GET
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def employee_type_get(request, type_id):
     if request.method == 'GET':
         type_id = int(type_id)
@@ -365,6 +399,8 @@ def employee_type_get(request, type_id):
 #EMPLOYEE_FILE_DOWNLODE
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def employee_file_download(request, file_id):
     if request.method == 'GET':
         req_obj = EmployeeDocumentService().employee_file_download(file_id)
@@ -374,6 +410,8 @@ def employee_file_download(request, file_id):
 #EMPLOYEE_GRADE_DROPDOWN
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_grade(request, id):
     if request.method == 'GET':
         id = int(id)
@@ -384,6 +422,8 @@ def get_grade(request, id):
 #FETCHING_EMPLOYEE_GRADE_DROPDOWN
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def fetch_grade(request):
     if request.method == 'GET':
         val = grade_type_compostie()
@@ -393,9 +433,9 @@ def fetch_grade(request):
 @csrf_exempt
 def auth_token(request):
     resp_obj = json.loads(request.body)
-    code = resp_obj['code']
+    username = resp_obj['username']
     password = resp_obj['password']
     Emp_service = EmployeeService()
-    portal_response = Emp_service.auth_login(code, password)
+    portal_response = Emp_service.auth_login(username, password)
     response = HttpResponse(portal_response.get(), content_type="application/json")
     return response

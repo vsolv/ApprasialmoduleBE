@@ -149,6 +149,8 @@ class EmployeeService:
             data_resp = EmployeeResponse()
             data_resp.set_id(x.id)
             data_resp.set_first_name(x.first_name)
+            data_resp.set_department(x.department)
+            data_resp.set_manager(x.manager)
             list_data.append(data_resp)
         vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
         list_data.set_pagination(vpage)
@@ -164,7 +166,7 @@ class EmployeeService:
             return resp
         else:
             token_obj = AuthToken.objects.create(user)
-            emp_user = Employee.objects.filter(code=user_name)
+            emp_user = Employee.objects.filter(first_name=user_name)
             if len(emp_user) == 0:
                 resp = WisefinMsg()
                 resp.set_message(ErrorMessage.INVALID_DATA)

@@ -3,6 +3,7 @@ import json
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from employeeservice.data.request.appraisaldetailrequest import AppraisalDetailRequest
 from employeeservice.data.request.appraisalqueuerequest import AppraisalQueueRequest
@@ -13,12 +14,16 @@ from employeeservice.service.appraisalqueueservice import AppraisalQueueService
 from employeeservice.service.appraisalservice import AppraisalService
 from employeeservice.service.employeeservice import EmployeeService
 from employeeservice.util.emputil import appraisal_type_composite
+from emputilityservice.service.authentication import EmployeeAuthentication
+from emputilityservice.service.permission import EmployeePermission
 from utilityservice.data.response.emppage import WisefinPage
 from utilityservice.data.response.empmessage import WisefinMsg, SuccessMessage, ErrorMessage, Success, SuccessStatus, Error, ErrorDescription
 
 
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def appraisal_create(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -58,6 +63,8 @@ def appraisal_create(request):
 
 @csrf_exempt
 @api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_appraisal(request, id):
     if request.method == 'GET':
         req_obj = AppraisalService().get_appraisal(id)
@@ -73,6 +80,8 @@ def get_appraisal(request, id):
 #APPRAISAL_DROP_DOWN
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def appraisal_drop_down(request):
     if request.method == 'GET':
         val = appraisal_type_composite()
@@ -83,6 +92,8 @@ def appraisal_drop_down(request):
 #APPRAISAL_DETAIL_CREATE
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def appraisal_detail_create(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -100,7 +111,9 @@ def appraisal_detail_create(request):
         return response
 
 @csrf_exempt
-@api_view(['GET','DELETE'])
+@api_view(['GET', 'DELETE'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def get_appraisal_details(request, id):
     if request.method == 'GET':
         req_obj = AppraisalDetailService().get_appraisal_detail(id)
@@ -116,6 +129,8 @@ def get_appraisal_details(request, id):
 #APPRAISAL_QUEUE
 @csrf_exempt
 @api_view(['POST', 'GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def appraisal_queue_create(request):
     if request.method == 'POST':
         data_json = json.loads(request.body)
@@ -135,6 +150,8 @@ def appraisal_queue_create(request):
 
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def appraisal_get(request, appraisal_id):
     if request.method == 'GET':
         appr_serv = AppraisalService()
@@ -159,6 +176,8 @@ def appraisal_get(request, appraisal_id):
 #EMPLOYEE_DROP_DOWN
 @csrf_exempt
 @api_view(['GET'])
+@authentication_classes([EmployeeAuthentication])
+@permission_classes([IsAuthenticated, EmployeePermission])
 def employee_drop_down(request):
     if request.method == 'GET':
         page = request.GET.get('page', 1)
