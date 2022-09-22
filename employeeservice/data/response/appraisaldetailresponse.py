@@ -22,7 +22,12 @@ class AppraisalDetailResponse:
     def set_rating(self, rating):
         self.rating = rating
 
-    def set_goal_mapping(self, goal_mapping):
-        goal_mapping_serv = GoalMappingService()
-        val = goal_mapping_serv.get_goal_mapping(goal_mapping)
-        self.goal_mapping = val
+    def set_goal_mapping(self, goal_mapping,arr):
+        self.goal_mapping = None
+        for i in arr:
+            if i.id == goal_mapping:
+                self.goal_mapping = i
+                break
+
+    def set_goal_mapping_id(self,goal_mapping):
+        self.goal_mapping = goal_mapping

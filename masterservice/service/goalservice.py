@@ -75,3 +75,14 @@ class GoalService:
         data_resp.set_description(obj.description)
         return data_resp
 
+    def goal_info(self,id):
+        obj = Goal.objects.filter(id__in=id)
+        arr = []
+        for i in obj:
+            data_resp = GoalResponse()
+            data_resp.set_id(i.id)
+            data_resp.set_name(i.name)
+            data_resp.set_description(i.description)
+            arr.append(data_resp)
+        return arr
+

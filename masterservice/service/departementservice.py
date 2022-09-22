@@ -62,10 +62,13 @@ class DepartmentService:
 
 #FOR EMPLOYEE_DEP_DROPDOWN
     def get_departments(self, id):
-        obj = Department.objects.get(id=id)
-        data_resp = DepartementResponse()
-        data_resp.set_id(obj.id)
-        data_resp.set_name(obj.name)
-        data_resp.set_code(obj.code)
-        return data_resp
+        obj = Department.objects.filter(id__in=id)
+        arr = []
+        for x in obj:
+            data_resp = DepartementResponse()
+            data_resp.set_id(x.id)
+            data_resp.set_name(x.name)
+            data_resp.set_code(x.code)
+            arr.append(data_resp)
+        return arr
 

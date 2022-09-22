@@ -32,10 +32,13 @@ class EmployeeResponse:
     def set_email_id(self, email_id):
         self.email_id = email_id
 
-    def set_designation(self, designation):
-        res_serv = DesignationService()
-        val = res_serv.get_designation_info(designation)
-        self.designation = val
+    def set_designation(self, designation, arr):
+        designation = int(designation)
+        self.designation = None
+        for i in arr:
+            if i.id == designation:
+                self.designation = i
+                break
 
     def set_doj(self, doj):
         self.doj = str(doj)
@@ -47,10 +50,12 @@ class EmployeeResponse:
     def set_dob(self, dob):
         self.dob = str(dob)
 
-    def set_department(self, department):
-        data_serv = DepartmentService()
-        dep_sis = data_serv.get_departments(department)
-        self.department = dep_sis
+    def set_department(self, department, arr):
+        self.department = None
+        for i in arr:
+            if i.id == department:
+                self.department = i
+                break
 
     def set_manager(self, manager):
         self.manager = manager
@@ -62,3 +67,8 @@ class EmployeeResponse:
     def set_grade(self, grade):
         vals = grade_type_val(grade)
         self.grade = vals
+
+    def set_designation_id(self, designation_id):
+        self.designation = designation_id
+    def set_department_id(self,department_id):
+        self.department = department_id
