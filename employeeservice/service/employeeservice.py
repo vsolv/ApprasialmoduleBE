@@ -8,6 +8,8 @@ from knox.models import AuthToken
 from employeeservice.models.employeemodels import Employee, Employeedocuments
 from employeeservice.data.response.employeeresponse import EmployeeResponse
 from employeeservice.service.empuser import create_user
+from masterservice.service.departementservice import DepartmentService
+from masterservice.service.designationservice import DesignationService
 from utilityservice.data.response.empmessage import WisefinMsg, SuccessMessage, ErrorMessage, Success, SuccessStatus, Error, ErrorDescription
 from utilityservice.data.response.emplist import WisefinList
 from employeeservice.util.emputil import ActiveStatus, UserrefType, Grade
@@ -79,6 +81,18 @@ class EmployeeService:
         if code is not None and code != '':
             condition &= Q(code=code)
         obj = Employee.objects.filter(condition).order_by('-created_date')[vys_page.get_offset():vys_page.get_query_limit()]
+        designation_id = []
+        department_id = []
+        for y in obj:
+            designation = y.designation
+            # designation = int(designation)
+            department = y.department
+            designation_id.append(designation)
+            department_id.append(department)
+        department_serv = DepartmentService()
+        designation_serv = DesignationService()
+        designation_data = designation_serv.get_designation_info(designation_id)
+        department_data = department_serv.get_departments(department_id)
         list_data = WisefinList()
         for x in obj:
             data_resp = EmployeeResponse()
@@ -86,13 +100,13 @@ class EmployeeService:
             data_resp.set_code(x.code)
             data_resp.set_doj(x.doj)
             data_resp.set_dob(x.dob)
-            data_resp.set_designation(x.designation)
+            data_resp.set_designation(x.designation, designation_data)
             data_resp.set_email_id(x.email_id)
             data_resp.set_first_name(x.first_name)
             data_resp.set_middle_name(x.middle_name)
             data_resp.set_last_name(x.last_name)
             data_resp.set_gender(x.gender)
-            data_resp.set_department(x.department)
+            data_resp.set_department(x.department, department_data)
             data_resp.set_manager(x.manager)
             data_resp.set_employee_type(x.employee_type)
             data_resp.set_grade(x.grade)
@@ -108,13 +122,17 @@ class EmployeeService:
         data_resp.set_code(obj.code)
         data_resp.set_doj(obj.doj)
         data_resp.set_dob(obj.dob)
-        data_resp.set_designation(obj.designation)
+        designation_serv = DesignationService()
+        designation = designation_serv.get_designation(obj.designation)
+        data_resp.set_designation_id(designation)
         data_resp.set_email_id(obj.email_id)
         data_resp.set_first_name(obj.first_name)
         data_resp.set_middle_name(obj.middle_name)
         data_resp.set_last_name(obj.last_name)
         data_resp.set_gender(obj.gender)
-        data_resp.set_department(obj.department)
+        department_serv = DepartmentService()
+        department = department_serv.get_department(obj.department)
+        data_resp.set_department_id(department)
         data_resp.set_manager(obj.manager)
         data_resp.set_employee_type(obj.employee_type)
         data_resp.set_grade(obj.grade)
@@ -137,6 +155,17 @@ class EmployeeService:
         data_resp.set_first_name(obj.first_name)
         return data_resp
 
+    def employee_get_value(self,id):
+        obj = Employee.objects.filter(id__in=id)
+        arr = []
+        for i in obj:
+            data_resp = EmployeeResponse()
+            data_resp.set_id(i.id)
+            data_resp.set_code(i.code)
+            data_resp.set_first_name(i.first_name)
+            arr.append(data_resp)
+        return arr
+
 #EMPLOYEE_DROP_DOWN
     def employee_drop_down(self, vys_page, request):
         query = request.GET.get('query')
@@ -149,6 +178,10 @@ class EmployeeService:
             data_resp = EmployeeResponse()
             data_resp.set_id(x.id)
             data_resp.set_first_name(x.first_name)
+            department_serv = DepartmentService()
+            department = department_serv.get_department(obj.department)
+            data_resp.set_department_id(department)
+            data_resp.set_manager(x.manager)
             list_data.append(data_resp)
         vpage = WisefinPaginator(obj, vys_page.get_index(), 10)
         list_data.set_pagination(vpage)
@@ -164,7 +197,7 @@ class EmployeeService:
             return resp
         else:
             token_obj = AuthToken.objects.create(user)
-            emp_user = Employee.objects.filter(code=user_name)
+            emp_user = Employee.objects.filter(first_name=user_name)
             if len(emp_user) == 0:
                 resp = WisefinMsg()
                 resp.set_message(ErrorMessage.INVALID_DATA)

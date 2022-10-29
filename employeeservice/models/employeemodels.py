@@ -116,6 +116,7 @@ class Appraisal(models.Model):
     appraisal_status = models.IntegerField(default=1)
     grade = models.SmallIntegerField(default=1)
     status = models.IntegerField(default=1)
+    appraisal_date = models.DateField(null=True)
     created_by = models.IntegerField(null=True)
     created_date = models.DateTimeField(default=now)
     updated_by = models.IntegerField(null=True, blank=True)
@@ -124,6 +125,7 @@ class Appraisal(models.Model):
 
 class Appraisaldetails(models.Model):
     appraisal = models.ForeignKey(Appraisal, on_delete=models.SET_NULL, null=True)
+    goal_mapping = models.IntegerField(null=True)
     remarks = models.TextField(max_length=125, null=True)
     rating = models.IntegerField(null=True, blank=True)
     status = models.IntegerField(default=1)

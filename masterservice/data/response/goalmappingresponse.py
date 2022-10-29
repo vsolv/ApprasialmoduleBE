@@ -27,12 +27,24 @@ class GoalMappingResponse:
         val = grade_type_val(grade)
         self.grade = val
 
-    def set_designation_id(self, designation_id):
-        desig_serv = DesignationService()
-        val = desig_serv.get_designation_info(designation_id)
-        self.designation_id = val
+    def set_designation_id(self, designation,arr):
+        designation = int(designation)
+        self.designation = None
+        for i in arr:
+            if i.id == designation:
+                self.designation = i
+                break
 
-    def set_goal_id(self, goal_id):
-        goal_ser = GoalService()
-        res_obj = goal_ser.get_goal(goal_id)
-        self.goal_id = res_obj
+
+    def set_goal_id(self, goal_id,arr):
+        self.goal = None
+        for i in arr:
+            if i.id == goal_id:
+                self.goal_id = i
+                break
+
+    def set_designation(self, designation):
+        self.designation = designation
+
+    def set_goal(self,goal):
+        self.goal = goal

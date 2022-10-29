@@ -63,10 +63,12 @@ class DesignationService:
 #FOR_EMPLOYEE_DROPDOWN
 
     def get_designation_info(self,id):
-        obj =Designation.objects.get(id=id)
-        data_resp = DesignationResponse()
-        data_resp.set_id(obj.id)
-        data_resp.set_code(obj.code)
-        data_resp.set_name(obj.name)
-
-        return data_resp
+        obj =Designation.objects.filter(id__in=id)
+        arr = []
+        for x in obj:
+            data_resp = DesignationResponse()
+            data_resp.set_id(x.id)
+            data_resp.set_code(x.code)
+            data_resp.set_name(x.name)
+            arr.append(data_resp)
+        return arr

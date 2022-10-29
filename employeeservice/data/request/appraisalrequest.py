@@ -1,5 +1,5 @@
 class AppraisalRequest:
-    id, employee, designation, appraisal_status, grade = (None,) *5
+    id, employee, designation, appraisal_status, grade, appraisal_date = (None,) * 6
 
     def __init__(self, user_obj):
         if 'id' in user_obj:
@@ -12,6 +12,8 @@ class AppraisalRequest:
             self.appraisal_status = user_obj['appraisal_status']
         if 'grade' in user_obj:
             self.grade = user_obj['grade']
+        if 'appraisal_date' in user_obj:
+            self.appraisal_date = user_obj['appraisal_date']
 
     def get_id(self):
         return self.id
@@ -27,3 +29,6 @@ class AppraisalRequest:
 
     def get_grade(self):
         return self.grade
+
+    def get_appraisal_date(self):
+        return self.appraisal_date
